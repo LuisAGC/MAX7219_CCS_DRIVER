@@ -86,6 +86,27 @@ available
 #define MAX7219_SCAN_0_1_2_3_4_5_6  0x06
 #define MAX7219_SCAN_ALL            0x07
 
+/****************************************
+The following section is to define the
+MAX7219 intensity register operations
+available
+*****************************************/
+#define MAX7219_INTENSITY_0         0x00
+#define MAX7219_INTENSITY_1         0x01
+#define MAX7219_INTENSITY_2         0x02
+#define MAX7219_INTENSITY_3         0x03
+#define MAX7219_INTENSITY_4         0x04
+#define MAX7219_INTENSITY_5         0x05
+#define MAX7219_INTENSITY_6         0x06
+#define MAX7219_INTENSITY_7         0x07
+#define MAX7219_INTENSITY_8         0x08
+#define MAX7219_INTENSITY_9         0x09
+#define MAX7219_INTENSITY_A         0x0A
+#define MAX7219_INTENSITY_B         0x0B
+#define MAX7219_INTENSITY_C         0x0C
+#define MAX7219_INTENSITY_D         0x0D
+#define MAX7219_INTENSITY_E         0x0E
+#define MAX7219_INTENSITY_F         0x0F
 
 #ifndef LOAD_PIN
    #define LOAD_PIN PIN_C0
@@ -106,3 +127,5 @@ int1 max7219_ClearDisplay(unsigned int8);
 void max7219_ScanAllDisplays(void);
 int1 max7219_ScanDisplayDigits(unsigned int8, unsigned int8);
 void max7219_SetAllDisplaysIntensity(unsigned int8);
+int1 max7219_SetDisplayIntensity(unsigned int8, unsigned int8);
+void max7219_SendArray(unsigned int8*);
