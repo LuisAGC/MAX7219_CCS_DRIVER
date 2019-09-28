@@ -1,0 +1,43 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+
+# PIC C CCS Compiler files and folders
+__history/
+*.cof
+*.hex
+*.err
+*.esym
+*.ccspjt
+*.lst
+*.STA
+*.sym
+*.tre
+*.xsym
