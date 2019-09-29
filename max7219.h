@@ -121,7 +121,6 @@ available
 #endif
 
 
-void max7219_SetAmountOfDisplays(unsigned int8);
 void max7219_TurnOnAllDisplays(void);
 int1 max7219_TurnOnDisplay(unsigned int8);
 void max7219_TestAllDisplays(int1);
