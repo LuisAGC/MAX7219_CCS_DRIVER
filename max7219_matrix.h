@@ -8,14 +8,14 @@
    #define MAX7219_DISPLAYS_AMOUNT 0x04
 #endif
 
-
 unsigned int8 ledMatrix[MAX7219_DIGITS_AMOUNT][MAX7219_DISPLAYS_AMOUNT];
 
 void _shiftRowLeft(unsigned int8);
-void shiftMatrixLeft();
+void shiftMatrixLeft(void);
 void _shiftRowRight(unsigned int8);
-void shiftMatrixRight();
+void shiftMatrixRight(void);
 void _shiftRowUp(unsigned int8);
-void shiftMatrixUp();
+void shiftMatrixUp(void);
 void _shiftRowDown(unsigned int8);
-void shiftMatrixDown();
+void shiftMatrixDown(void);
+void clearMatrix(void);

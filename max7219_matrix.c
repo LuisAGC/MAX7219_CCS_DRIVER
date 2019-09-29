@@ -73,3 +73,13 @@ void shiftMatrixDown(){
          ledMatrix[0][counter] = 0x00;
    }
 }
+
+void clearMatrix(){
+   unsigned int8 row = 0;
+   unsigned int8 column = 0;
+   for(row = 0; row < MAX7219_DIGITS_AMOUNT; row++){
+      for(column = 0; column < MAX7219_DISPLAYS_AMOUNT; column++){
+         ledMatrix[row][column] = 0x00;
+      }
+   }
+}
