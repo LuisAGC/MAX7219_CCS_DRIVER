@@ -2,8 +2,8 @@
 
 void _shiftRowLeft(unsigned int8 row){
    unsigned int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
-      if(counter == (MAX7219_DISPLAYS_AMOUNT - 1)){
+   for(counter = 0; counter < MATRIX_COLUMNS; counter++){
+      if(counter == (MATRIX_COLUMNS - 1)){
          ledMatrix[row][counter] <<= 1;
       }
       else{
@@ -15,14 +15,14 @@ void _shiftRowLeft(unsigned int8 row){
 
 void shiftMatrixLeft(){
    unsigned int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DIGITS_AMOUNT; counter++){
+   for(counter = 0; counter < MATRIX_ROWS; counter++){
       _shiftRowLeft(counter);
    }
 }
 
 void _shiftRowRight(unsigned int8 row){
    signed int8 counter = 0;
-   for(counter = MAX7219_DISPLAYS_AMOUNT - 1; counter >= 0; counter--){
+   for(counter = MATRIX_COLUMNS - 1; counter >= 0; counter--){
       if(counter == 0){
          ledMatrix[row][counter] >>= 1;
       }
@@ -35,41 +35,41 @@ void _shiftRowRight(unsigned int8 row){
 
 void shiftMatrixRight(){
    unsigned int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DIGITS_AMOUNT; counter++){
+   for(counter = 0; counter < MATRIX_ROWS; counter++){
       _shiftRowRight(counter);
    }
 }
 
 void _shiftRowUp(unsigned int8 row){
    signed int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
+   for(counter = 0; counter < MATRIX_COLUMNS; counter++){
          ledMatrix[row][counter] = ledMatrix[row+1][counter];
    }
 }
 
 void shiftMatrixUp(){
    unsigned int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DIGITS_AMOUNT - 1; counter++){
+   for(counter = 0; counter < MATRIX_ROWS - 1; counter++){
          _shiftRowUp(counter);
    }
-   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
-         ledMatrix[MAX7219_DIGITS_AMOUNT-1][counter] = 0x00;
+   for(counter = 0; counter < MATRIX_COLUMNS; counter++){
+         ledMatrix[MATRIX_ROWS-1][counter] = 0x00;
    }
 }
 
 void _shiftRowDown(unsigned int8 row){
    signed int8 counter = 0;
-   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
+   for(counter = 0; counter < MATRIX_COLUMNS; counter++){
          ledMatrix[row][counter] = ledMatrix[row-1][counter];
    }
 }
 
 void shiftMatrixDown(){
    unsigned int8 counter = 0;
-   for(counter = MAX7219_DIGITS_AMOUNT - 1; counter >= 1 ; counter--){
+   for(counter = MATRIX_ROWS - 1; counter >= 1 ; counter--){
          _shiftRowDown(counter);
    }
-   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
+   for(counter = 0; counter < MATRIX_COLUMNS; counter++){
          ledMatrix[0][counter] = 0x00;
    }
 }
@@ -77,8 +77,8 @@ void shiftMatrixDown(){
 void clearMatrix(){
    unsigned int8 row = 0;
    unsigned int8 column = 0;
-   for(row = 0; row < MAX7219_DIGITS_AMOUNT; row++){
-      for(column = 0; column < MAX7219_DISPLAYS_AMOUNT; column++){
+   for(row = 0; row < MATRIX_ROWS; row++){
+      for(column = 0; column < MATRIX_COLUMNS; column++){
          ledMatrix[row][column] = 0x00;
       }
    }
