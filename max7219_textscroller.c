@@ -32,3 +32,17 @@ int1 scrollMessageLeftMatrixDisplay(unsigned char * message, unsigned int8 messa
    }
    return FALSE;
 }
+
+int1 clearMatrixDisplay(){
+   if(currentScrollerColumn >= SCROLLER_COLUMN_AMOUNT){
+      currentScrollerColumn = 0;
+      return TRUE;
+   }
+   currentScrollerColumn++;
+   shiftMatrixLeft();
+   unsigned int8 rowCounter = 0;
+   for(rowCounter = 0; rowCounter < MATRIX_ROWS; rowCounter++){
+      max7219_SendArray(ledMatrix[rowCounter], rowCounter+MAX7219_D0_REG);
+   }
+   return FALSE;
+}
