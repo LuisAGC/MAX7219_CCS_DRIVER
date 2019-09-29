@@ -1,13 +1,9 @@
 #include <max7219.h>
 
-void max7219_SetAmountOfDisplays(unsigned int8 amount){
-   max7219_numberOfDisplays = amount;
-}
-
 void max7219_TurnOnAllDisplays(){
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       spi_write(MAX7219_SHUTDOWN_REG);
       spi_write(MAX7219_NOSHUTDOWN);
    }
@@ -18,7 +14,7 @@ void max7219_TurnOnAllDisplays(){
 void max7219_TestAllDisplays(int1 test){
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       spi_write(MAX7219_TESTDISPLAY_REG);
       spi_write(test);
    }
@@ -27,10 +23,10 @@ void max7219_TestAllDisplays(int1 test){
 }
 
 int1 max7219_TestDisplay(unsigned int8 displayNumber, int1 test){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       if(counter == displayNumber){
          spi_write(MAX7219_TESTDISPLAY_REG);
          spi_write(test);
@@ -46,10 +42,10 @@ int1 max7219_TestDisplay(unsigned int8 displayNumber, int1 test){
 }
 
 int1 max7219_SetDigitsDecode(unsigned int8 displayNumber, unsigned int8 digitSetup){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       if(counter == displayNumber){
          spi_write(MAX7219_DECODEMODE_REG);
          spi_write(digitSetup);
@@ -65,10 +61,10 @@ int1 max7219_SetDigitsDecode(unsigned int8 displayNumber, unsigned int8 digitSet
 }
 
 int1 max7219_SetDigitValue(unsigned int8 displayNumber, unsigned int8 digitRegister, unsigned int8 digitValue){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       if(counter == displayNumber){
          spi_write(digitRegister);
          spi_write(digitValue);
@@ -88,7 +84,7 @@ void max7219_ClearAllDisplays(){
    unsigned int8 digit = 0;
    output_low(LOAD_PIN);
    for(digit = MAX7219_D0_REG; digit <= MAX7219_D7_REG; digit++){
-      for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+      for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
          spi_write(digit);
          spi_write(MAX7219_NOOP);
       }
@@ -98,12 +94,12 @@ void max7219_ClearAllDisplays(){
 }
 
 int1 max7219_ClearDisplay(unsigned int8 displayNumber){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    unsigned int8 digit = 0;
    output_low(LOAD_PIN);
    for(digit = MAX7219_D0_REG; digit <= MAX7219_D7_REG; digit++){
-      for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+      for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
          if(counter == displayNumber){
          spi_write(digit);
          spi_write(MAX7219_NOOP);
@@ -122,7 +118,7 @@ int1 max7219_ClearDisplay(unsigned int8 displayNumber){
 void max7219_ScanAllDisplays(){
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       spi_write(MAX7219_SCANLIMIT_REG);
       spi_write(MAX7219_SCAN_ALL);
    }
@@ -131,10 +127,10 @@ void max7219_ScanAllDisplays(){
 }
 
 int1 max7219_ScanDisplayDigits(unsigned int8 displayNumber, unsigned int8 scanConfiguration){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       if(counter == displayNumber){
          spi_write(MAX7219_SCANLIMIT_REG);
          spi_write(scanConfiguration);
@@ -152,7 +148,7 @@ int1 max7219_ScanDisplayDigits(unsigned int8 displayNumber, unsigned int8 scanCo
 void max7219_SetAllDisplaysIntensity(unsigned int8 intensity){
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       spi_write(MAX7219_INTENSITY_REG);
       spi_write(intensity);
    }
@@ -161,10 +157,10 @@ void max7219_SetAllDisplaysIntensity(unsigned int8 intensity){
 }
 
 int1 max7219_SetDisplayIntensity(unsigned int8 displayNumber, unsigned int8 intensityConfiguration){
-   if(displayNumber >= max7219_numberOfDisplays) return FALSE;
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       if(counter == displayNumber){
          spi_write(MAX7219_INTENSITY_REG);
          spi_write(intensityConfiguration);
@@ -182,7 +178,7 @@ int1 max7219_SetDisplayIntensity(unsigned int8 displayNumber, unsigned int8 inte
 void max7219_SendArray(unsigned int8* data, unsigned int8 digitRegister){
    unsigned int8 counter = 0;
    output_low(LOAD_PIN);
-   for(counter = 0; counter < max7219_numberOfDisplays; counter++){
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
       spi_write(digitRegister);
       spi_write(data[counter]);
    }

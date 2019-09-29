@@ -108,12 +108,18 @@ available
 #define MAX7219_INTENSITY_E         0x0E
 #define MAX7219_INTENSITY_F         0x0F
 
+#define MAX7219_DIGITS_AMOUNT       0x08
+
+#define MAX7219_DRIVER              0xFF
+
 #ifndef LOAD_PIN
    #define LOAD_PIN PIN_C0
 #endif
 
-//Variables needed to work
-unsigned int8 max7219_numberOfDisplays = 0;
+#ifndef MAX7219_DISPLAYS_AMOUNT
+   #define MAX7219_DISPLAYS_AMOUNT 0x04
+#endif
+
 
 void max7219_SetAmountOfDisplays(unsigned int8);
 void max7219_TurnOnAllDisplays(void);
@@ -128,4 +134,4 @@ void max7219_ScanAllDisplays(void);
 int1 max7219_ScanDisplayDigits(unsigned int8, unsigned int8);
 void max7219_SetAllDisplaysIntensity(unsigned int8);
 int1 max7219_SetDisplayIntensity(unsigned int8, unsigned int8);
-void max7219_SendArray(unsigned int8*);
+void max7219_SendArray(unsigned int8*, unsigned int8);
