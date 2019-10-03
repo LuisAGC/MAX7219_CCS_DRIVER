@@ -112,8 +112,12 @@ available
 
 #define MAX7219_DRIVER              0xFF
 
-#ifndef LOAD_PIN
-   #define LOAD_PIN PIN_C0
+#ifndef CLK_PIN
+   #define CLK_PIN PIN_C3
+#endif
+
+#ifndef DOUT_PIN
+   #define DOUT_PIN PIN_C5
 #endif
 
 #ifndef MAX7219_DISPLAYS_AMOUNT
@@ -121,16 +125,17 @@ available
 #endif
 
 
-void max7219_TurnOnAllDisplays(void);
-int1 max7219_TurnOnDisplay(unsigned int8);
-void max7219_TestAllDisplays(int1);
-int1 max7219_TestDisplay(unsigned int8, int1);
-int1 max7219_SetDigitsDecode(unsigned int8, unsigned int8);
-int1 max7219_SetDigitValue(unsigned int8, unsigned int8, unsigned int8);
-void max7219_ClearAllDisplays(void);
-int1 max7219_ClearDisplay(unsigned int8);
-void max7219_ScanAllDisplays(void);
-int1 max7219_ScanDisplayDigits(unsigned int8, unsigned int8);
-void max7219_SetAllDisplaysIntensity(unsigned int8);
-int1 max7219_SetDisplayIntensity(unsigned int8, unsigned int8);
-void max7219_SendArray(unsigned int8*, unsigned int8);
+void max7219_TurnOnAllDisplays(unsigned int16);
+int1 max7219_TurnOnDisplay(unsigned int8, unsigned int16);
+void max7219_TestAllDisplays(int1, unsigned int16);
+int1 max7219_TestDisplay(unsigned int8, int1, unsigned int16);
+int1 max7219_SetDigitsDecode(unsigned int8, unsigned int8, unsigned int16);
+int1 max7219_SetDigitValue(unsigned int8, unsigned int8, unsigned int8, unsigned int16);
+void max7219_ClearAllDisplays(unsigned int16);
+int1 max7219_ClearDisplay(unsigned int8, unsigned int16);
+void max7219_ScanAllDisplays(unsigned int16);
+int1 max7219_ScanDisplayDigits(unsigned int8, unsigned int8, unsigned int16);
+void max7219_SetAllDisplaysIntensity(unsigned int8, unsigned int16);
+int1 max7219_SetDisplayIntensity(unsigned int8, unsigned int8, unsigned int16);
+void max7219_SendArray(unsigned int8*, unsigned int8, unsigned int16);
+void _max7219_ShiftDataOut(unsigned int8, unsigned int8);

@@ -15,5 +15,5 @@ unsigned int8 currentScrollerColumn = 0;
 
 
 int1 shiftCharacterColumnToMatrix(unsigned char, unsigned int8);
-int1 scrollMessageLeftMatrixDisplay(unsigned char *, unsigned int8);
-int1 clearMatrixDisplay(void);
+int1 scrollMessageLeftMatrixDisplay(unsigned char *, unsigned int8, unsigned int16);
+int1 clearMatrixDisplay(unsigned int16);

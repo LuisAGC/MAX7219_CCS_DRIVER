@@ -14,7 +14,7 @@ int1 shiftCharacterColumnToMatrix(unsigned char character, unsigned int8 column)
    return TRUE;
 }
 
-int1 scrollMessageLeftMatrixDisplay(unsigned char * message, unsigned int8 messageSize){
+int1 scrollMessageLeftMatrixDisplay(unsigned char * message, unsigned int8 messageSize, unsigned int16 loadPin){
    if(currentCharColumn > FONT_WIDTH) {
       currentCharIndex++;
       currentCharColumn = 0;
@@ -28,12 +28,12 @@ int1 scrollMessageLeftMatrixDisplay(unsigned char * message, unsigned int8 messa
    currentCharColumn++;
    unsigned int8 counter = 0;
    for(counter = 0; counter < MATRIX_ROWS; counter++){
-      max7219_SendArray(ledMatrix[counter], counter+MAX7219_D0_REG);
+      max7219_SendArray(ledMatrix[counter], counter+MAX7219_D0_REG, loadPin);
    }
    return FALSE;
 }
 
-int1 clearMatrixDisplay(){
+int1 clearMatrixDisplay(unsigned int16 loadPin){
    if(currentScrollerColumn >= SCROLLER_COLUMN_AMOUNT){
       currentScrollerColumn = 0;
       return TRUE;
@@ -42,7 +42,7 @@ int1 clearMatrixDisplay(){
    shiftMatrixLeft();
    unsigned int8 rowCounter = 0;
    for(rowCounter = 0; rowCounter < MATRIX_ROWS; rowCounter++){
-      max7219_SendArray(ledMatrix[rowCounter], rowCounter+MAX7219_D0_REG);
+      max7219_SendArray(ledMatrix[rowCounter], rowCounter+MAX7219_D0_REG, loadPin);
    }
    return FALSE;
 }
