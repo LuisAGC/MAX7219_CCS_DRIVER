@@ -10,6 +10,23 @@ void max7219_TurnOnAllDisplays(unsigned int16 loadPin){
    output_low(loadPin);
 }
 
+int1 max7219_TurnOnDisplay(unsigned int8 displayNumber, unsigned int16 loadPin){
+   if(displayNumber >= MAX7219_DISPLAYS_AMOUNT) return FALSE;
+   unsigned int8 counter = 0;
+   output_low(loadPin);
+   for(counter = 0; counter < MAX7219_DISPLAYS_AMOUNT; counter++){
+      if(counter == displayNumber){
+         _max7219_ShiftDataOut(MAX7219_SHUTDOWN_REG, MAX7219_NOSHUTDOWN);
+      }
+      else{
+         _max7219_ShiftDataOut(MAX7219_NOOP, MAX7219_NOOP);
+      }
+   }
+   output_high(loadPin);
+   output_low(loadPin);
+   return TRUE;
+}
+
 void max7219_TestAllDisplays(int1 test, unsigned int16 loadPin){
    unsigned int8 counter = 0;
    output_low(loadPin);

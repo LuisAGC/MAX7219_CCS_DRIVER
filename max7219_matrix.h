@@ -33,4 +33,5 @@ void drawRectangle(signed int16, signed int16, signed int16, signed int16);
 void drawCircle(signed int16, signed int16, signed int16);
 void sendMatrix(unsigned int16 *);
 void drawCharacter(signed int16, signed int16, char);
-void drawString(signed int16, signed int16, char *, unsigned int8);
+void drawString(signed int16, signed int16, char *, unsigned int8, unsigned int8);
+void clearPartialMatrix(signed int16, signed int16, signed int16, signed int16);

@@ -87,8 +87,8 @@ void clearMatrix(){
 int1 putPixel(signed int16 x, signed int16 y){   
    if(x < 0 || y < 0) return FALSE;
    
-   unsigned int16 column = x/8 ;
-   unsigned int16 subColumn = x - column * 8;
+   unsigned int16 column = x >> 3 ;
+   unsigned int16 subColumn = x - (column << 3);
    
    if(x >= MATRIX_SUBCOLUMNS || y >= MATRIX_ROWS) return false;
    ledMatrix[y][column] |= 0x80 >> subColumn;
@@ -219,6 +219,18 @@ void drawString(signed int16 x, signed int16 y, char * string, unsigned int8 str
    unsigned int8 counter = 0;
    for(counter = 0; counter < stringLength; counter++){
       drawCharacter(x, y, string[counter]);
-         x = x + FONT_WIDTH + spacing;
+      x = x + FONT_WIDTH + spacing;
+   }
+}
+
+void clearPartialMatrix(signed int16 x0, signed int16 y0, signed int16 x1, signed int16 y1){
+   unsigned int16 x = x0;
+   unsigned int16 y = y0;
+   for(x = x0; x <= x1; x++){
+      for(y = y0; y <= y1; y++){
+         unsigned int16 column = x/8 ;
+         unsigned int16 subColumn = x - column * 8;
+         ledMatrix[y][column] &= ~(0x80 >> subColumn);
+      }
    }
 }
