@@ -1,7 +1,7 @@
 #include <max7219_matrix.h>
 
-void _shiftRowLeft(unsigned int8 row){
-   unsigned int8 counter = 0;
+void _shiftRowLeft(unsigned int16 row){
+   unsigned int16 counter = 0;
    for(counter = 0; counter < MATRIX_COLUMNS; counter++){
       if(counter == (MATRIX_COLUMNS - 1)){
          ledMatrix[row][counter] <<= 1;
@@ -80,6 +80,18 @@ void clearMatrix(){
    for(row = 0; row < MATRIX_ROWS; row++){
       for(column = 0; column < MATRIX_COLUMNS; column++){
          ledMatrix[row][column] = 0x00;
+      }
+   }
+}
+
+void clearPartialMatrix(signed int16 x0, signed int16 y0, signed int16 x1, signed int16 y1){
+   unsigned int16 x = x0;
+   unsigned int16 y = y0;
+   for(x = x0; x <= x1; x++){
+      for(y = y0; y <= y1; y++){
+         unsigned int16 column = x/8 ;
+         unsigned int16 subColumn = x - column * 8;
+         ledMatrix[y][column] &= ~(0x80 >> subColumn);
       }
    }
 }
@@ -192,17 +204,6 @@ void drawCircle(signed int16 xc, signed int16 yc, signed int16 radius){
    }
 }
 
-void sendMatrix( unsigned int16 * loadPinArray){
-   unsigned int8 counter = 0;
-   unsigned int8 pinIndex = 0;
-   for(pinIndex = 0; pinIndex < MAX7219_VERTICAL_DISPLAYS_AMOUNT; pinIndex++){
-      for(counter = MAX7219_D0_REG; counter <= MAX7219_D7_REG; counter++){
-         unsigned int8 matrixIndex = (pinIndex*MAX7219_DIGITS_AMOUNT) + counter - 1;
-         max7219_SendArray(ledMatrix[matrixIndex], counter, loadPinArray[pinIndex]);
-      }
-   }
-}
-
 void drawCharacter(signed int16 x, signed int16 y, char character){
    unsigned int8 fontHeightCounter = 0;
    unsigned int8 fontWidthCounter = 0;
@@ -223,14 +224,13 @@ void drawString(signed int16 x, signed int16 y, char * string, unsigned int8 str
    }
 }
 
-void clearPartialMatrix(signed int16 x0, signed int16 y0, signed int16 x1, signed int16 y1){
-   unsigned int16 x = x0;
-   unsigned int16 y = y0;
-   for(x = x0; x <= x1; x++){
-      for(y = y0; y <= y1; y++){
-         unsigned int16 column = x/8 ;
-         unsigned int16 subColumn = x - column * 8;
-         ledMatrix[y][column] &= ~(0x80 >> subColumn);
+void sendMatrix( unsigned int16 * loadPinArray){
+   unsigned int8 counter = 0;
+   unsigned int8 pinIndex = 0;
+   for(pinIndex = 0; pinIndex < MAX7219_VERTICAL_DISPLAYS_AMOUNT; pinIndex++){
+      for(counter = MAX7219_D0_REG; counter <= MAX7219_D7_REG; counter++){
+         unsigned int8 matrixIndex = (pinIndex*MAX7219_DIGITS_AMOUNT) + counter - 1;
+         max7219_SendArray(ledMatrix[matrixIndex], counter, loadPinArray[pinIndex]);
       }
    }
 }
